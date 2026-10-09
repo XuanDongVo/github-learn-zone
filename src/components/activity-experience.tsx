@@ -6,8 +6,8 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from "@/components/u
 import {MODE_LABEL,STRATEGY_LABEL,supportedModes,type Activity,type ActivitySession,type ActivitySessionMode,type AnswerFeedback,type SelectionStrategy} from "@/lib/domain";
 import {startSession,submitAnswer,hintFor} from "@/lib/mock";
 export function ActivityExperience({activity,onClose}:{activity:Activity;onClose:()=>void}){
- const [mode,setMode]=useState<ActivitySessionMode>(supportedModes(activity.mode)[0]);
- const [strategy,setStrategy]=useState<SelectionStrategy>(activity.availableSelectionStrategies[0]);
+ const [mode,setMode]=useState<ActivitySessionMode>(supportedModes(activity.mode)[0] ?? "LEARNING");
+ const [strategy,setStrategy]=useState<SelectionStrategy>(activity.availableSelectionStrategies[0] ?? "RANDOM");
  const [session,setSession]=useState<ActivitySession|null>(null);
  const [index,setIndex]=useState(0);const [answer,setAnswer]=useState<string[]>([]);const [feedback,setFeedback]=useState<AnswerFeedback|null>(null);const [hint,setHint]=useState(false);const [seconds,setSeconds]=useState(activity.timeLimitSeconds??20);
  const q=session?.questions[index];const done=session&&session.status!=="IN_PROGRESS";
