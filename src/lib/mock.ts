@@ -30,19 +30,21 @@ export function startSession(a: Activity, mode: ActivitySessionMode, selectionSt
   return {
     id: Date.now(), status: "IN_PROGRESS", mode, selectionStrategy,
     totalQuestions: BANK.length, firstCorrectCount: 0, finalCorrectCount: 0, hintUsedCount: 0,
-    lives: mode === "TRY_HARD" ? a.lives : undefined,
+    ...(mode === "TRY_HARD" && a.lives !== undefined ? { lives: a.lives } : {}),
     questions: BANK.map((q, i) => ({ id: i + 1, position: i + 1, type: q.type, content: q.content, options: q.options, resolved: false, answerAttempts: 0, hintUsed: false, hasHint: mode === "LEARNING" && !!q.hint })),
   };
 }
-export const hintFor = (id: number) => BANK[id - 1].hint ?? "";
+export const hintFor = (id: number) => BANK[id - 1]?.hint ?? "";
 
 const norm = (s: string) => s.trim().toLowerCase().replace(/[’]/g, "'");
 export function submitAnswer(s: ActivitySession, qid: number, answer: string[] | null): { session: ActivitySession; feedback: AnswerFeedback } {
   const src = BANK[qid - 1];
+  if (!src) throw new Error("Question unavailable");
   const timedOut = answer === null;
-  const correct = !timedOut && answer!.length === src.answer.length && src.answer.every((x) => answer!.some((y) => norm(y) === norm(x)));
+  const correct = !timedOut && answer?.length === src.answer.length && src.answer.every((x) => answer?.some((y) => norm(y) === norm(x)));
   const questions = s.questions.map((q) => ({ ...q }));
   const q = questions[qid - 1];
+  if (!q) throw new Error("Question unavailable");
   q.answerAttempts += 1;
   const maxAttempts = s.mode === "LEARNING" ? 2 : 1;
   const retryAvailable = !correct && q.answerAttempts < maxAttempts;
@@ -51,7 +53,7 @@ export function submitAnswer(s: ActivitySession, qid: number, answer: string[] |
   let lives = s.lives;
   if (s.mode === "TRY_HARD" && !correct && !timedOut && lives != null) lives -= 1;
   const next: ActivitySession = {
-    ...s, questions, lives,
+    ...s, questions, ...(lives !== undefined ? { lives } : {}),
     firstCorrectCount: questions.filter((x) => x.firstCorrect).length,
     finalCorrectCount: questions.filter((x) => x.finalCorrect).length,
   };
@@ -59,7 +61,7 @@ export function submitAnswer(s: ActivitySession, qid: number, answer: string[] |
   else if (questions.every((x) => x.resolved)) next.status = "COMPLETED";
   if (next.status !== "IN_PROGRESS" && s.mode === "TRY_HARD") next.score = next.firstCorrectCount * 100;
   const revealed = !correct && !retryAvailable;
-  return { session: next, feedback: { correct, retryAvailable, answerRevealed: revealed, correctAnswer: revealed ? src.answer.map((k) => src.options.find((o) => o.key === k)?.content ?? k).join(", ") : undefined, explanation: correct || revealed ? src.explanation : undefined } };
+  return { session: next, feedback: { correct, retryAvailable, answerRevealed: revealed, ...(revealed ? { correctAnswer: src.answer.map((k) => src.options.find((o) => o.key === k)?.content ?? k).join(", ") } : {}), ...(correct || revealed ? { explanation: src.explanation } : {}) } };
 }
 
 export const delay = <T,>(v: T, ms = 450) => new Promise<T>((r) => setTimeout(() => r(v), ms));
