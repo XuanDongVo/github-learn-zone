@@ -40,7 +40,7 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/[’]/g, "'");
 export function submitAnswer(s: ActivitySession, qid: number, answer: string[] | null): { session: ActivitySession; feedback: AnswerFeedback } {
   const src = BANK[qid - 1];
   const timedOut = answer === null;
-  const correct = !timedOut && answer!.length === src.answer.length && src.answer.every((x) => answer!.some((y) => norm(y) === norm(x)));
+  const correct = !timedOut && answer?.length === src.answer.length && src.answer.every((x) => answer?.some((y) => norm(y) === norm(x)));
   const questions = s.questions.map((q) => ({ ...q }));
   const q = questions[qid - 1];
   q.answerAttempts += 1;
