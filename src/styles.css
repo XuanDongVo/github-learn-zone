@@ -87,3 +87,62 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 }
+
+/* Learnspace: shared layout, card and interaction language. */
+:root {
+ --background: oklch(0.981 0.003 85);
+ --foreground: oklch(0.27 0.018 265);
+ --primary: oklch(0.52 0.18 275);
+ --primary-soft: oklch(0.96 0.016 275);
+ --muted-foreground: oklch(0.56 0.018 265);
+ --border: oklch(0.923 0.006 85);
+ --accent: oklch(0.96 0.016 275);
+ --accent-foreground: oklch(0.52 0.18 275);
+ --cover-peach: oklch(0.95 0.035 67);
+ --cover-ink: oklch(0.62 0.11 48);
+ --cover-blue: oklch(0.91 0.035 205);
+}
+@layer base { h1,h2,h3 {letter-spacing:0;} button,a,input,select { -webkit-tap-highlight-color: transparent; } }
+.student-app {min-height:100vh;display:flex;font-size:14px;}
+.student-sidebar {width:228px;flex-shrink:0;position:fixed;inset:0 auto 0 0;background:var(--card);border-right:1px solid var(--border);padding:36px 22px 20px;display:flex;flex-direction:column;z-index:20;}
+.brand {display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:22px;font-weight:650;line-height:1.1;}
+.brand-mark {display:grid;place-items:center;width:36px;height:36px;background:var(--primary);color:var(--primary-foreground);border-radius:8px;}
+.brand-caption {display:block;font-family:var(--font-sans);font-size:8px;letter-spacing:1.6px;color:var(--muted-foreground);margin-top:7px;}
+.sidebar-section-label {font-size:9px;letter-spacing:1.5px;font-weight:600;color:var(--muted-foreground);margin:57px 12px 17px;}
+.sidebar-nav {display:flex;flex-direction:column;gap:7px;}
+.sidebar-nav a {justify-content:flex-start;height:44px;padding:0 14px;gap:13px;color:var(--muted-foreground);font-weight:500;}
+.sidebar-nav a.nav-active {background:var(--primary-soft);color:var(--primary);}
+.sidebar-footer {margin-top:auto;display:flex;align-items:center;gap:10px;padding:20px 2px 0;border-top:1px solid var(--border);}
+.student-avatar {background:var(--secondary);color:var(--muted-foreground);width:34px;height:34px;display:grid;place-items:center;border-radius:50%;font-size:12px;font-weight:600;}
+.sidebar-footer strong {font-size:11px;font-weight:600;display:block;}.sidebar-footer div>span {font-size:10px;color:var(--muted-foreground);display:block;margin-top:4px;}
+.student-body {margin-left:228px;width:calc(100% - 228px);min-width:0;display:flex;flex-direction:column;}
+.student-topbar {height:75px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 42px;background:var(--card);}
+.topbar-label {display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted-foreground);}.topbar-label strong {font-weight:500;color:var(--foreground);}
+.sample-label {font-size:10px;color:var(--muted-foreground);display:flex;align-items:center;gap:7px;}.sample-label>span {width:5px;height:5px;border-radius:50%;background:var(--warning);}
+.student-main {width:100%;max-width:1320px;padding:46px 42px 60px;margin:0 auto;flex:1;}
+.eyebrow {font-size:10px;letter-spacing:1.6px;font-weight:650;color:var(--primary);display:flex;gap:8px;align-items:center;}.eyebrow>span {width:5px;height:5px;border-radius:50%;background:var(--primary);}
+.welcome-section {padding:4px 0 37px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+.welcome-section h1 {font-size:36px;font-weight:550;line-height:1.4;margin-top:17px;}
+.welcome-section h1>span {font-weight:400;}
+.welcome-bottom {display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:19px;}.welcome-bottom p {font-size:12px;color:var(--muted-foreground);}.welcome-bottom a {font-size:11px;height:36px;background:var(--card);border-color:var(--border);box-shadow:none;}
+.section-heading {display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px;}.section-heading h2 {font-size:25px;font-weight:600;margin-top:8px;}.section-heading p {color:var(--muted-foreground);font-size:12px;margin-top:7px;}
+.heading-controls {display:flex;flex-direction:column;align-items:flex-end;gap:11px;padding-bottom:2px;}.grade-label {display:flex;align-items:center;gap:6px;color:var(--muted-foreground);font-size:10px;}.state-select {font-size:9px;color:var(--muted-foreground);background:transparent;max-width:110px;outline:none;cursor:pointer;}
+.unit-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
+.unit-card {background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,border-color .2s;}.unit-card:hover {transform:translateY(-3px);border-color:var(--input);}
+.unit-cover {height:174px;position:relative;overflow:hidden;background:var(--cover-blue);}.unit-cover img {width:100%;height:100%;object-fit:cover;object-position:center 47%;}.cover-2 img {object-position:80% 65%;transform:scale(1.2);}
+.unit-number-label {position:absolute;top:16px;left:17px;z-index:2;background:var(--card);border-radius:3px;padding:4px 7px;color:var(--foreground);font-size:8px;font-weight:600;letter-spacing:.6px;}.cover-subject {position:absolute;left:17px;bottom:13px;font-size:7px;letter-spacing:1.5px;font-weight:600;color:var(--foreground);opacity:.65;}
+.typographic-cover {background:var(--cover-peach);color:var(--cover-ink);height:100%;display:flex;align-items:center;justify-content:center;gap:22px;}.typographic-cover>span {font-family:var(--font-display);font-size:64px;font-weight:400;}.typographic-cover>svg {position:absolute;right:-8px;bottom:25px;transform:rotate(-13deg);opacity:.2;}
+.unit-content {padding:22px 20px 20px;}.unit-content h3 {font-size:17px;font-weight:600;}.unit-content>p {font-size:11px;line-height:1.9;color:var(--muted-foreground);margin-top:9px;min-height:43px;}.unit-meta {font-size:9px;color:var(--muted-foreground);display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:20px 0 18px;}.meta-dot {margin:0 2px;}.open-unit {width:100%;height:37px;justify-content:space-between;font-size:11px;box-shadow:none;font-weight:550;}
+.learning-footnote {display:flex;gap:14px;align-items:center;margin-top:31px;padding:21px 0;border-top:1px solid var(--border);}.footnote-icon {width:36px;height:36px;background:var(--learning-soft);color:var(--learning);display:grid;place-items:center;border-radius:8px;}.learning-footnote strong {font-size:11px;font-weight:600;}.learning-footnote p {font-size:10px;color:var(--muted-foreground);margin-top:4px;}
+.page-footer {margin:0 42px;padding:20px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;color:var(--muted-foreground);font-size:9px;}.page-footer>span:last-child {display:flex;align-items:center;gap:6px;}
+.unit-skeleton {height:372px;background:var(--muted);border-radius:8px;}.empty-state {padding:70px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;border-block:1px solid var(--border);}.empty-state>svg {color:var(--muted-foreground);}.empty-state p {color:var(--muted-foreground);font-size:12px;}
+.breadcrumbs {display:flex;gap:8px;align-items:center;color:var(--muted-foreground);font-size:11px;margin-bottom:24px;}.breadcrumbs>span {display:flex;gap:8px;align-items:center;}
+.unit-banner {display:flex;align-items:center;gap:30px;border:1px solid var(--border);background:var(--card);border-radius:8px;overflow:hidden;}.unit-banner>img {width:180px;height:168px;object-fit:cover;}.unit-banner h1 {font-size:27px;margin-top:8px;font-weight:600;}.unit-banner p {font-size:12px;color:var(--muted-foreground);margin-top:10px;}.unit-banner-meta {display:flex;gap:6px;align-items:center;font-size:10px;color:var(--muted-foreground);margin-top:15px;}
+.activities-header {display:flex;justify-content:space-between;align-items:center;margin:34px 0 20px;}.activities-header h2 {font-size:18px;font-weight:600;}.activities-header h2 span {font-size:12px;font-family:var(--font-sans);font-weight:400;color:var(--muted-foreground);margin-left:8px;}
+.activity-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}.activity-card {border:1px solid var(--border);border-radius:8px;background:var(--card);padding:21px;display:flex;flex-direction:column;}.activity-card-top {display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}.activity-card-top>span {font-size:10px;color:var(--muted-foreground);}.activity-icon {width:33px;height:33px;background:var(--primary-soft);color:var(--primary);border-radius:8px;display:grid;place-items:center;}.activity-card h3 {font-size:15px;font-weight:600;}.activity-description {font-size:11px;color:var(--muted-foreground);line-height:1.9;min-height:43px;margin-top:8px;}.mode-tags {display:flex;gap:7px;margin:14px 0;flex-wrap:wrap;}.mode-tag {display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;padding:3px 6px;border-radius:3px;}.learning-tag {background:var(--learning-soft);color:var(--learning);}.hard-tag {background:var(--warning-soft);color:var(--warning);}.activity-settings {font-size:9px;color:var(--muted-foreground);display:flex;gap:12px;margin-bottom:17px;}.activity-settings>span {display:flex;align-items:center;gap:4px;}.activity-card>button {margin-top:auto;height:36px;font-size:11px;box-shadow:none;}
+.intro-content {display:flex;flex-direction:column;gap:18px;}.intro-content p {color:var(--muted-foreground);font-size:12px;line-height:1.8;}.mode-choice {padding:16px;border:1px solid var(--border);border-radius:6px;display:flex;gap:12px;cursor:pointer;}.mode-choice:has(input:checked) {background:var(--primary-soft);border-color:var(--primary);}.mode-choice input {accent-color:var(--primary);}.mode-choice strong {font-size:13px;display:block;margin-bottom:5px;}.mode-choice span {font-size:11px;color:var(--muted-foreground);}
+@media(min-width:1500px){.student-main{padding-top:60px;}.unit-cover{height:215px;}.welcome-section h1{font-size:40px;}}
+@media(max-width:1100px){.student-sidebar{width:195px;padding-inline:16px;}.student-body{margin-left:195px;width:calc(100% - 195px);}.student-topbar{padding-inline:28px;}.student-main{padding-inline:28px;}.unit-grid,.activity-grid{gap:14px;}.unit-content{padding:18px 14px;}.unit-cover{height:150px;}.unit-meta{font-size:8px;}.activity-card{padding:16px;}.brand{font-size:20px;}}
+@media(max-width:850px){.student-sidebar{width:170px;}.student-body{margin-left:170px;width:calc(100% - 170px);}.unit-grid,.activity-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.welcome-section h1{font-size:30px;}.welcome-bottom{align-items:flex-start;flex-direction:column;}.brand{font-size:17px;}.brand-mark{width:30px;height:30px;}.brand-caption{font-size:6px;}.student-main{padding:32px 24px;}.sidebar-footer strong{font-size:9px;}}
+@media(max-width:600px){.student-app{display:block;}.student-sidebar{position:sticky;top:0;width:100%;height:64px;flex-direction:row;padding:0 18px;align-items:center;justify-content:space-between;border-right:0;border-bottom:1px solid var(--border);}.brand{font-size:19px;}.brand-caption,.sidebar-section-label,.sidebar-footer{display:none;}.sidebar-nav{flex-direction:row;gap:4px;}.sidebar-nav a{font-size:0;width:38px;height:38px;justify-content:center;padding:0;}.sidebar-nav a svg{width:18px;height:18px;}.student-body{margin:0;width:100%;}.student-topbar{height:45px;padding:0 20px;}.topbar-label{font-size:9px;gap:6px;}.sample-label{font-size:8px;}.student-main{padding:28px 20px 40px;}.welcome-section{padding-bottom:28px;margin-bottom:28px;}.welcome-section h1{font-size:27px;line-height:1.5;}.welcome-bottom{margin-top:16px;gap:16px;}.welcome-bottom p{font-size:11px;line-height:1.8;}.section-heading h2{font-size:22px;}.section-heading p{max-width:210px;font-size:11px;line-height:1.8;}.grade-label{font-size:8px;}.heading-controls{gap:12px;}.unit-grid,.activity-grid{grid-template-columns:1fr;gap:20px;}.unit-cover{height:195px;}.unit-content{padding:22px;}.unit-content h3{font-size:19px;}.unit-content>p{min-height:0;font-size:12px;}.unit-meta{font-size:10px;}.open-unit{height:42px;font-size:12px;}.page-footer{margin-inline:20px;font-size:8px;}.learning-footnote p{line-height:1.8;}.unit-banner{gap:0;flex-direction:column;align-items:stretch;}.unit-banner>img{width:100%;height:145px;}.unit-banner>div{padding:22px;}.activity-card{padding:22px;}.activity-description{min-height:0;}.activity-settings{font-size:11px;}.activity-card>button{height:40px;font-size:12px;}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
