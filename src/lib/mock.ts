@@ -1,4 +1,5 @@
 // PROTOTYPE SAMPLE DATA — not real student data. Replace with GET /v1/units and GET /v1/activities?unitId=.
+import type { ExamQuestion, ExamAnswers } from "./exam";
 import type { Activity, ActivitySession, ActivitySessionMode, AnswerFeedback, QuestionType, SelectionStrategy } from "./domain";
 
 export type Unit = { id: number; code: string; name: string; description?: string };
@@ -72,11 +73,11 @@ export const EXAM_SAMPLE = {
   course: "Grade 7 English",
   subtitle: "Grammar & vocabulary",
   remainingSeconds: 18 * 60 + 42,
-  currentQuestion: 12,
-  answers: Object.fromEntries(Array.from({ length: 11 }, (_, i) => [i + 1, [["A", "C", "B", "A"][i % 4]]])) as Record<number, string[]>,
+  currentQuestion: 1,
+  answers: {} as ExamAnswers,
 };
 
-export const EXAM_QUESTIONS = [
+const EXAM_CHOICE_SAMPLES = [
   { id: 1, prompt: "Choose the correct form of the verb.", sentence: "My sister _____ to school every morning.", options: ["walks", "walk", "walking", "walked"] },
   { id: 2, prompt: "Choose the word that completes the sentence.", sentence: "There isn't _____ milk in the fridge.", options: ["many", "a few", "much", "a"] },
   { id: 3, prompt: "Choose the correct preposition.", sentence: "Our English class starts _____ nine o'clock.", options: ["on", "at", "in", "by"] },
@@ -98,3 +99,32 @@ export const EXAM_QUESTIONS = [
   { id: 19, prompt: "Choose the correct response.", sentence: "Would you like some orange juice?", options: ["Yes, please.", "Yes, I am.", "Yes, I do.", "Yes, it is."] },
   { id: 20, prompt: "Choose the correct word to complete the sentence.", sentence: "This is the _____ day of my holiday.", options: ["best", "better", "good", "well"] },
 ].map(question => ({ ...question, options: question.options.map((text, index) => ({ key: String.fromCharCode(65 + index), text })) }));
+
+
+export const EXAM_QUESTIONS: ExamQuestion[] = [
+  ...EXAM_CHOICE_SAMPLES.slice(0, 4).map(q => ({ ...q, type: "SINGLE_CHOICE" as const })),
+  ...[
+    { id: 5, sentence: "Which words describe things you can eat?", options: ["Bread", "Water", "Rice", "Milk"] },
+    { id: 6, sentence: "Which sentences are in the past tense?", options: ["She visited London.", "He plays tennis.", "We watched a film.", "They are cooking."] },
+    { id: 7, sentence: "Which words are adjectives?", options: ["Beautiful", "Quickly", "Friendly", "Run"] },
+    { id: 8, sentence: "Which activities can help protect the environment?", options: ["Recycling paper", "Wasting water", "Planting trees", "Dropping litter"] },
+  ].map(q => ({ ...q, type: "MULTIPLE_CHOICE" as const, prompt: "Select all the correct answers.", options: q.options.map((text, i) => ({ key: String.fromCharCode(65 + i), text })) })),
+  ...[
+    { id: 9, sentence: "The past tense of ‘go’ is ‘went’." },
+    { id: 10, sentence: "We use ‘much’ with countable plural nouns." },
+    { id: 11, sentence: "‘Taller’ is the comparative form of ‘tall’." },
+    { id: 12, sentence: "The sentence ‘She don't like apples’ is grammatically correct." },
+  ].map(q => ({ ...q, type: "TRUE_FALSE" as const, prompt: "Decide whether the statement is true or false.", options: [{ key: "TRUE", text: "True" }, { key: "FALSE", text: "False" }] })),
+  ...[
+    { id: 13, sentence: "She _____ English every day. (study)" },
+    { id: 14, sentence: "Yesterday, we _____ to the park. (go)" },
+    { id: 15, sentence: "My bag is _____ than yours. (heavy)" },
+    { id: 16, sentence: "There _____ three books on the desk. (be)" },
+  ].map(q => ({ ...q, type: "FILL_IN_BLANK" as const, prompt: "Complete the sentence with the correct form of the word.", options: [] })),
+  ...[
+    { id: 17, sentence: "Write one sentence about what you usually do after school." },
+    { id: 18, sentence: "Rewrite using ‘because’: I stayed home. I was ill." },
+    { id: 19, sentence: "Write a question for this answer: I go to school by bus." },
+    { id: 20, sentence: "Write one sentence about something you did last weekend." },
+  ].map(q => ({ ...q, type: "TYPE_ANSWER" as const, prompt: "Write your answer in the space below.", options: [] })),
+];
