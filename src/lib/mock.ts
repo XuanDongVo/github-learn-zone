@@ -1,4 +1,4 @@
-// PROTOTYPE SAMPLE DATA — not real student data. Replace with GET /v1/units and GET /v1/activities?unitId=.
+import type { ExamQuestion, ExamAnswers } from "./exam";
 import type { Activity, ActivitySession, ActivitySessionMode, AnswerFeedback, QuestionType, SelectionStrategy } from "./domain";
 
 export type Unit = { id: number; code: string; name: string; description?: string };
@@ -66,35 +66,44 @@ export function submitAnswer(s: ActivitySession, qid: number, answer: string[] |
 
 export const delay = <T,>(v: T, ms = 450) => new Promise<T>((r) => setTimeout(() => r(v), ms));
 
-// Standalone assignment-screen samples, not Activity records or a live exam API.
 export const EXAM_SAMPLE = {
   title: "Unit 3 · English assessment",
   course: "Grade 7 English",
   subtitle: "Grammar & vocabulary",
   remainingSeconds: 18 * 60 + 42,
-  currentQuestion: 12,
-  answers: Object.fromEntries(Array.from({ length: 11 }, (_, i) => [i + 1, ["A", "C", "B", "A"][i % 4]])) as Record<number, string>,
+  currentQuestion: 1,
+  answers: {} as ExamAnswers,
 };
 
-export const EXAM_QUESTIONS = [
-  { id: 1, prompt: "Choose the correct form of the verb.", sentence: "My sister _____ to school every morning.", options: ["walks", "walk", "walking", "walked"] },
-  { id: 2, prompt: "Choose the word that completes the sentence.", sentence: "There isn't _____ milk in the fridge.", options: ["many", "a few", "much", "a"] },
-  { id: 3, prompt: "Choose the correct preposition.", sentence: "Our English class starts _____ nine o'clock.", options: ["on", "at", "in", "by"] },
-  { id: 4, prompt: "Choose the correct comparative adjective.", sentence: "This book is _____ than the one I read last week.", options: ["more interesting", "most interesting", "interesting", "interestingly"] },
-  { id: 5, prompt: "Choose the correct word.", sentence: "We _____ visit our grandparents on Sundays.", options: ["usually", "yesterday", "tomorrow", "last"] },
-  { id: 6, prompt: "Choose the correct past tense form.", sentence: "Last weekend, they _____ a new museum.", options: ["visit", "visits", "visited", "visiting"] },
-  { id: 7, prompt: "Choose the word with the closest meaning to ‘begin’.", sentence: "The lesson will begin in five minutes.", options: ["finish", "start", "leave", "wait"] },
-  { id: 8, prompt: "Choose the correct possessive pronoun.", sentence: "This pencil belongs to me. It is _____.", options: ["mine", "my", "me", "I"] },
-  { id: 9, prompt: "Choose the correct article.", sentence: "She wants to be _____ astronaut.", options: ["an", "a", "the", "some"] },
-  { id: 10, prompt: "Choose the correct conjunction.", sentence: "I took an umbrella _____ it was raining.", options: ["but", "or", "because", "although"] },
-  { id: 11, prompt: "Choose the correct form of the verb.", sentence: "Look! The children _____ football.", options: ["plays", "are playing", "played", "play"] },
-  { id: 12, prompt: "Choose the correct word to complete the sentence.", sentence: "If it rains tomorrow, we _____ at home.", options: ["will stay", "would stay", "stayed", "are staying"] },
-  { id: 13, prompt: "Choose the correct question word.", sentence: "_____ do you go to the library? — Twice a week.", options: ["How often", "How much", "How long", "How far"] },
-  { id: 14, prompt: "Choose the opposite of ‘expensive’.", sentence: "The tickets were expensive.", options: ["cheap", "large", "quiet", "popular"] },
-  { id: 15, prompt: "Choose the correct modal verb.", sentence: "You _____ wear a helmet when you ride a bike.", options: ["should", "would", "might", "will"] },
-  { id: 16, prompt: "Choose the correct plural noun.", sentence: "There are three _____ sitting on the bench.", options: ["child", "children", "childs", "childrens"] },
-  { id: 17, prompt: "Choose the correct form of the verb.", sentence: "I enjoy _____ books in my free time.", options: ["reading", "read", "to reading", "reads"] },
-  { id: 18, prompt: "Choose the correct preposition.", sentence: "The picture is hanging _____ the wall.", options: ["on", "at", "to", "from"] },
-  { id: 19, prompt: "Choose the correct response.", sentence: "Would you like some orange juice?", options: ["Yes, please.", "Yes, I am.", "Yes, I do.", "Yes, it is."] },
-  { id: 20, prompt: "Choose the correct word to complete the sentence.", sentence: "This is the _____ day of my holiday.", options: ["best", "better", "good", "well"] },
-].map(question => ({ ...question, options: question.options.map((text, index) => ({ key: String.fromCharCode(65 + index), text })) }));
+export const EXAM_QUESTIONS: ExamQuestion[] = [
+  ...[
+    { id: 1, prompt: "Choose the correct form of the verb.", sentence: "My sister _____ to school every morning.", options: ["walks", "walk", "walking", "walked"] },
+    { id: 2, prompt: "Choose the word that completes the sentence.", sentence: "There isn't _____ milk in the fridge.", options: ["many", "a few", "much", "a"] },
+    { id: 3, prompt: "Choose the correct preposition.", sentence: "Our English class starts _____ nine o'clock.", options: ["on", "at", "in", "by"] },
+    { id: 4, prompt: "Choose the correct comparative adjective.", sentence: "This book is _____ than the one I read last week.", options: ["more interesting", "most interesting", "interesting", "interestingly"] },
+  ].map(q => ({ ...q, type: "SINGLE_CHOICE" as const, options: q.options.map((text, i) => ({ key: String.fromCharCode(65 + i), text })) })),
+  ...[
+    { id: 5, sentence: "Which words describe things you can eat?", options: ["Bread", "Water", "Rice", "Milk"] },
+    { id: 6, sentence: "Which sentences are in the past tense?", options: ["She visited London.", "He plays tennis.", "We watched a film.", "They are cooking."] },
+    { id: 7, sentence: "Which words are adjectives?", options: ["Beautiful", "Quickly", "Friendly", "Run"] },
+    { id: 8, sentence: "Which activities can help protect the environment?", options: ["Recycling paper", "Wasting water", "Planting trees", "Dropping litter"] },
+  ].map(q => ({ ...q, type: "MULTIPLE_CHOICE" as const, prompt: "Select all the correct answers.", options: q.options.map((text, i) => ({ key: String.fromCharCode(65 + i), text })) })),
+  ...[
+    { id: 9, sentence: "The past tense of ‘go’ is ‘went’." },
+    { id: 10, sentence: "We use ‘much’ with countable plural nouns." },
+    { id: 11, sentence: "‘Taller’ is the comparative form of ‘tall’." },
+    { id: 12, sentence: "The sentence ‘She don't like apples’ is grammatically correct." },
+  ].map(q => ({ ...q, type: "TRUE_FALSE" as const, prompt: "Decide whether the statement is true or false.", options: [{ key: "TRUE", text: "True" }, { key: "FALSE", text: "False" }] })),
+  ...[
+    { id: 13, sentence: "She _____ English every day. (study)" },
+    { id: 14, sentence: "Yesterday, we _____ to the park. (go)" },
+    { id: 15, sentence: "My bag is _____ than yours. (heavy)" },
+    { id: 16, sentence: "There _____ three books on the desk. (be)" },
+  ].map(q => ({ ...q, type: "FILL_IN_BLANK" as const, prompt: "Complete the sentence with the correct form of the word.", options: [] })),
+  ...[
+    { id: 17, sentence: "Write one sentence about what you usually do after school." },
+    { id: 18, sentence: "Rewrite using ‘because’: I stayed home. I was ill." },
+    { id: 19, sentence: "Write a question for this answer: I go to school by bus." },
+    { id: 20, sentence: "Write one sentence about something you did last weekend." },
+  ].map(q => ({ ...q, type: "TYPE_ANSWER" as const, prompt: "Write your answer in the space below.", options: [] })),
+];

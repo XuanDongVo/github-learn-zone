@@ -7,3 +7,8 @@
 - [x] Create the focused exam screen and sample English questions.
 - [x] Add direct navigation, countdown, review/submit and mobile drawer.
 - [x] Verify exam rules and desktop/mobile interactions.
+
+# List-based exam redesign
+- [ ] Display all questions in a continuous list with direct scroll navigation.
+- [ ] Support all five QuestionType answer controls and accurate review states.
+- [ ] Verify desktop, tablet and mobile layouts and interactions.
