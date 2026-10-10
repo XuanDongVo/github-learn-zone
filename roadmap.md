@@ -4,6 +4,6 @@
 - [x] Verify desktop/mobile layouts and existing routing tests.
 
 # Assignment exam screen
-- [ ] Create the focused exam screen and sample English questions.
-- [ ] Add direct navigation, countdown, review/submit and mobile drawer.
-- [ ] Verify exam rules and desktop/mobile interactions.
+- [x] Create the focused exam screen and sample English questions.
+- [x] Add direct navigation, countdown, review/submit and mobile drawer.
+- [x] Verify exam rules and desktop/mobile interactions.
