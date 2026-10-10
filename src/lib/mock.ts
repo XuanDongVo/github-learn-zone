@@ -73,7 +73,7 @@ export const EXAM_SAMPLE = {
   subtitle: "Grammar & vocabulary",
   remainingSeconds: 18 * 60 + 42,
   currentQuestion: 12,
-  answers: Object.fromEntries(Array.from({ length: 11 }, (_, i) => [i + 1, ["A", "C", "B", "A"][i % 4]])) as Record<number, string>,
+  answers: Object.fromEntries(Array.from({ length: 11 }, (_, i) => [i + 1, ["A", "C", "B", "A"][[i % 4]]])) as Record<number, string[]>,
 };
 
 export const EXAM_QUESTIONS = [
