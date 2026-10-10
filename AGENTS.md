@@ -12,3 +12,5 @@
 - Keep prototype sample records isolated in src/lib/mock.ts; UI components must not imply that samples are live API data.
 - Use shared StudentShell and UnitGallery for the student pages so navigation and unit presentation stay consistent.
 - Keep activity introduction and practice within a modal on the selected Unit Activities page to preserve unit context.
+- Keep assignment exam presentation separate from Activity practice, with sample questions in mock.ts and pure exam-state helpers in a dedicated module; this prevents practice rules from leaking into assessment screens.
+- The home route presents the assignment exam sample while existing unit routes remain intact; this makes the requested exam the first preview without redefining backend contracts.
