@@ -70,6 +70,7 @@ export function AssignmentExam() {
       </main>
       {!submitted && <aside className="exam-navigator" aria-label="Question navigator">{navigator}</aside>}
     </div>
+    {view === "exam" && <Button className="exam-mobile-submit" onClick={() => setView("review")}><ClipboardCheck/>Review &amp; Submit<ArrowUpRight/></Button>}
     <footer className="exam-footer"><span><LockKeyhole size={12}/>Assignment exam</span><span>Sample assignment · Not a live exam</span><span>LearnUp · A little better, every day.</span></footer>
   </div>;
 }
