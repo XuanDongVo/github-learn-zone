@@ -11,7 +11,7 @@ export const EXAM_TYPE_LABEL: Record<QuestionType, string> = {
 };
 
 export function ExamQuestionItem({ question, answer = [], total, editable, current, onChange, onActivate }: {
-  question: ExamQuestion; answer?: string[]; total: number; editable: boolean; current: boolean;
+  question: ExamQuestion; answer?: string[] | undefined; total: number; editable: boolean; current: boolean;
   onChange: (answer: string[]) => void; onActivate: () => void;
 }) {
   const textAnswer = question.type === "FILL_IN_BLANK" || question.type === "TYPE_ANSWER";
