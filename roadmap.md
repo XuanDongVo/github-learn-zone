@@ -12,3 +12,8 @@
 - [ ] Display all questions in a continuous list with direct scroll navigation.
 - [ ] Support all five QuestionType answer controls and accurate review states.
 - [ ] Verify desktop, tablet and mobile layouts and interactions.
+
+# Student foundation and Home
+- [ ] Add LearnUp tokens, shared controls, Pipo and a styleguide.
+- [ ] Add Student Home, shared navigation and clearly labeled sample summaries.
+- [ ] Preserve exam/practice flows and verify desktop, tablet and mobile.
