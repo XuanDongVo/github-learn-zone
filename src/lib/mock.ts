@@ -75,6 +75,17 @@ export const EXAM_SAMPLE = {
   answers: {} as ExamAnswers,
 };
 
+// Presentation-only student summaries; never treated as live API records.
+export const STUDENT_SAMPLE = { id: "sample-student", name: "Minh Anh", grade: 6, className: "6A", xp: 1240, nextLevelXp: 1300, streakDays: 7, classRank: 3, classSize: 28, dailyGoal: { target: 1, done: 0 } };
+export const STUDENT_UNIT_PROGRESS = [65, 30, 0];
+export const STUDENT_ASSIGNMENTS = [
+  { id: 1, title: "Grammar & vocabulary", unitName: "Food & Drink", dueInDays: 2, questionCount: 20, timeLimitMinutes: 20, status: "TODO" as const },
+  { id: 2, title: "My daily routine", unitName: "Daily Routines", dueInDays: 5, questionCount: 15, timeLimitMinutes: 20, status: "IN_PROGRESS" as const },
+];
+export const STUDENT_RANKING = [{ name: "Hoàng Nam", xp: 1480 }, { name: "Linh Chi", xp: 1360 }, { name: "Minh Anh", xp: 1240 }, { name: "Gia Huy", xp: 1180 }, { name: "Thảo My", xp: 1120 }];
+export const STUDENT_RESULTS = [{ name: "Family vocabulary", mode: "Practice", score: "4/5", xp: 10, date: "Yesterday" }, { name: "Speed check", mode: "Try Hard", score: "3/5", xp: 10, date: "2 days ago" }, { name: "Possessive 's", mode: "Practice", score: "5/5", xp: 10, date: "3 days ago" }];
+export const PIPO_LINES = ["Small steps count. You've got this!", "A little English, a little progress.", "Your next adventure is one click away.", "I'm rooting for you!", "Take your time. Learning isn't a race.", "New words, new possibilities!", "Mistakes help us learn.", "One activity can make a difference.", "Ready when you are!", "Look how far you've come!", "A fresh start is always welcome.", "Let's make today a learning day!"];
+
 export const EXAM_QUESTIONS: ExamQuestion[] = [
   ...[
     { id: 1, prompt: "Choose the correct form of the verb.", sentence: "My sister _____ to school every morning.", options: ["walks", "walk", "walking", "walked"] },
