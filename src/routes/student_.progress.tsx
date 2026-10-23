@@ -1,0 +1,6 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { StudentShell } from "@/components/shell";
+import { RankingRows, ResultRows } from "@/components/student-home";
+import { SectionHeader } from "@/components/student-foundation";
+export const Route=createFileRoute("/student_/progress")({head:()=>({meta:[{title:"Your Progress — LearnUp"},{name:"description",content:"Look back at your English practice results and class activity ranking."},{property:"og:title",content:"Your Progress — LearnUp"},{property:"og:description",content:"Your sample learning milestones, activity results and class ranking."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Page});
+function Page(){return <StudentShell><div className="student-page-heading"><h1>Your progress</h1><p>Small steps are adding up.</p></div><div className="home-columns"><section><SectionHeader title="Recent results"/><ResultRows/></section><section><SectionHeader title="Class ranking"/><RankingRows/></section></div></StudentShell>;}
