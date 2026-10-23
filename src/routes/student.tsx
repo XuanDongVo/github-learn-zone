@@ -1,0 +1,5 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { StudentShell } from "@/components/shell";
+import { StudentHome } from "@/components/student-home";
+export const Route = createFileRoute("/student")({validateSearch: (s: Record<string, unknown>) => ({ state: import.meta.env.DEV && typeof s["state"] === "string" ? s["state"] : "data" }), head: () => ({meta:[{title:"Student Home — LearnUp"},{name:"description",content:"Your next English activity, assignments and learning progress in one friendly student workspace."},{property:"og:title",content:"Student Home — LearnUp"},{property:"og:description",content:"Keep learning with your units, class assignments and Pipo."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Page});
+function Page(){const {state}=Route.useSearch();return <StudentShell><StudentHome state={state}/></StudentShell>;}
