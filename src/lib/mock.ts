@@ -1,4 +1,5 @@
 import type { ExamQuestion, ExamAnswers } from "./exam";
+import type { Student } from "@/mocks/types";
 import type { Activity, ActivitySession, ActivitySessionMode, AnswerFeedback, QuestionType, SelectionStrategy } from "./domain";
 
 export type Unit = { id: number; code: string; name: string; description?: string };
@@ -76,7 +77,7 @@ export const EXAM_SAMPLE = {
 };
 
 // Presentation-only student summaries; never treated as live API records.
-export const STUDENT_SAMPLE = { id: "sample-student", name: "Minh Anh", grade: 6, className: "6A", xp: 1240, nextLevelXp: 1300, streakDays: 7, classRank: 3, classSize: 28, dailyGoal: { target: 1, done: 0 } };
+export const STUDENT_SAMPLE: Student = { id: "sample-student", name: "Minh Anh", avatarUrl: null, grade: 6, className: "6A", xp: 1240, level: 7, nextLevelXp: 1300, streakDays: 7, streakAtRisk: false, classRank: 3, classSize: 28, dailyGoal: { target: 1, done: 0 } };
 export const STUDENT_UNIT_PROGRESS = [65, 30, 0];
 export const STUDENT_ASSIGNMENTS = [
   { id: 1, title: "Grammar & vocabulary", unitName: "Food & Drink", dueInDays: 2, questionCount: 20, timeLimitMinutes: 20, status: "TODO" as const },
