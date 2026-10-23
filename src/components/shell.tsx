@@ -1,25 +1,24 @@
-import { Link } from "@tanstack/react-router";
-import { BookOpen, GraduationCap, House, ChevronRight, CircleHelp, ArrowUpRight, Inbox, RotateCw, AlertCircle } from "lucide-react";
-import type { ReactNode } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { BookOpen, GraduationCap, House, ChevronRight, Inbox, RotateCw, AlertCircle, Sparkles, ClipboardList, ChartNoAxesColumnIncreasing, Bell, Settings } from "lucide-react";
+import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { PipoProvider, StreakChip, XpChip, usePipo } from "./student-foundation";
+import { STUDENT_SAMPLE } from "@/lib/mock";
+import { levelFromXp } from "@/lib/student";
 
 export function StudentShell({ children }: { children: ReactNode }) {
-  return <div className="student-app">
-    <aside className="student-sidebar">
-      <Link to="/" className="brand"><span className="brand-mark"><GraduationCap size={22}/></span><span>learn<span className="text-primary">space</span><span className="brand-caption">A LITTLE EVERY DAY</span></span></Link>
-      <div className="sidebar-section-label">YOUR WORKSPACE</div>
-      <nav className="sidebar-nav" aria-label="Main navigation">
-        <Button variant="ghost" asChild><Link to="/" activeOptions={{exact:true}} activeProps={{className:"nav-active"}}><House/>Home</Link></Button>
-        <Button variant="ghost" asChild><Link to="/units" activeProps={{className:"nav-active"}}><BookOpen/>My learning</Link></Button>
-      </nav>
-      <div className="sidebar-footer"><span className="student-avatar">S</span><div><strong>Student workspace</strong><span>Grade 6 · English</span></div></div>
-    </aside>
-    <div className="student-body">
-      <header className="student-topbar"><div className="topbar-label"><BookOpen size={16}/><span>Student space</span><ChevronRight size={13}/><strong>My learning</strong></div><span className="sample-label"><span/>Sample workspace</span></header>
-      <main className="student-main">{children}</main>
-      <footer className="page-footer"><span>Small steps. Meaningful learning.</span><span><GraduationCap size={15}/> Learnspace</span></footer>
-    </div>
-  </div>;
+  return <PipoProvider><ShellContent>{children}</ShellContent></PipoProvider>;
+}
+function StudentNav({ mobile = false }: { mobile?: boolean }) {return <nav className={mobile ? "learnup-bottom-nav" : "sidebar-nav"} aria-label={mobile ? "Mobile navigation" : "Main navigation"}>
+  <Button variant="ghost" asChild><Link to="/student" search={{state:"data"}} activeOptions={{exact:true}} activeProps={{className:"nav-active"}}><House/><span>Home</span></Link></Button>
+  <Button variant="ghost" asChild><Link to="/units" activeProps={{className:"nav-active"}}><BookOpen/><span>Learning</span></Link></Button>
+  <Button variant="ghost" asChild><Link to="/activities" search={{unitId:0}} activeProps={{className:"nav-active"}}><Sparkles/><span>Activities</span></Link></Button>
+  <Button variant="ghost" asChild><Link to="/student/assignments" activeProps={{className:"nav-active"}}><ClipboardList/><span>Assignments</span></Link></Button>
+  <Button variant="ghost" asChild><Link to="/student/progress" activeProps={{className:"nav-active"}}><ChartNoAxesColumnIncreasing/><span>Progress</span></Link></Button>
+</nav>;}
+function ShellContent({children}:{children:ReactNode}) {const {enabled,toggle}=usePipo();const [dialog,setDialog]=useState<"profile"|"notifications"|null>(null);const path=useLocation({select:l=>l.pathname});const label=path==="/student"?"Home":path.includes("assignments")?"Assignments":path.includes("progress")?"Progress":path==="/activities"?"Activities":path.includes("styleguide")?"Styleguide":"Learning";
+ return <div className="student-app learnup-theme"><a className="student-skip" href="#student-content">Skip to content</a><aside className="student-sidebar"><Link to="/student" search={{state:"data"}} className="brand"><span className="brand-mark"><GraduationCap size={24}/></span><span>Learn<span className="text-primary">Up</span></span></Link><div className="sidebar-section-label">YOUR LEARNING SPACE</div><StudentNav/><div className="sidebar-motto"><span><BookOpen size={22}/></span><strong>A little every day.</strong><p>Big things start with small steps.</p></div><Button variant="ghost" className="mascot-setting" onClick={toggle} aria-pressed={enabled}><Settings size={16}/>Mascot {enabled?"on":"off"}</Button><Button variant="ghost" className="sidebar-footer" onClick={()=>setDialog("profile")}><span className="student-avatar">MA</span><span><strong>{STUDENT_SAMPLE.name}</strong><small>Grade 6 · Level {levelFromXp(STUDENT_SAMPLE.xp)}</small></span><ChevronRight size={14}/></Button></aside><div className="student-body"><header className="student-topbar"><div className="topbar-label"><span>My workspace</span><ChevronRight size={13}/><strong>{label}</strong></div><Link to="/student" search={{state:"data"}} className="mobile-brand">Learn<span>Up</span></Link><div className="student-topbar-right"><span className="sample-label"><span/>Sample workspace</span><XpChip xp={STUDENT_SAMPLE.xp}/><StreakChip days={STUDENT_SAMPLE.streakDays}/><Button variant="ghost" size="icon" aria-label="Notifications" onClick={()=>setDialog("notifications")}><Bell size={20}/></Button><Button variant="ghost" className="mobile-avatar student-avatar" aria-label="Open profile" onClick={()=>setDialog("profile")}>MA</Button></div></header><main id="student-content" className="student-main">{children}</main><footer className="page-footer"><span>Small steps. Meaningful learning.</span><span><GraduationCap size={15}/>LearnUp · Sample workspace</span></footer></div><StudentNav mobile/><Dialog open={dialog!==null} onOpenChange={open=>{if(!open)setDialog(null);}}><DialogContent className="learnup-theme student-dialog"><DialogTitle>{dialog==="profile"?STUDENT_SAMPLE.name:"Notifications"}</DialogTitle><DialogDescription>{dialog==="profile"?`Sample student · Grade 6 · Class ${STUDENT_SAMPLE.className}`:"You're all caught up. No new notifications in this sample workspace."}</DialogDescription>{dialog==="profile"&&<><XpChip xp={STUDENT_SAMPLE.xp}/><Button variant="outline" aria-pressed={enabled} onClick={toggle}><Settings/>Mascot {enabled?"on":"off"}</Button></>}</DialogContent></Dialog></div>;
 }
 export function Crumbs({items}:{items:ReactNode[]}) {return <nav className="breadcrumbs" aria-label="Breadcrumb">{items.map((it,i)=><span key={i}>{i>0&&<ChevronRight size={13}/>} {it}</span>)}</nav>}
 export const Skeleton=({rows=3}:{rows?:number})=><div className="unit-grid">{Array.from({length:rows}).map((_,i)=><div className="unit-skeleton animate-pulse" key={i}/>)}</div>;
