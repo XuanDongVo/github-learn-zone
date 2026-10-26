@@ -1,5 +1,5 @@
 import type { ExamQuestion, ExamAnswers } from "./exam";
-import type { Student } from "@/mocks/types";
+import type { Student, AssignmentPreview } from "@/mocks/types";
 import type { Activity, ActivitySession, ActivitySessionMode, AnswerFeedback, QuestionType, SelectionStrategy } from "./domain";
 
 export type Unit = { id: number; code: string; name: string; description?: string };
@@ -79,9 +79,13 @@ export const EXAM_SAMPLE = {
 // Presentation-only student summaries; never treated as live API records.
 export const STUDENT_SAMPLE: Student = { id: "sample-student", name: "Minh Anh", avatarUrl: null, grade: 6, className: "6A", xp: 1240, level: 7, nextLevelXp: 1300, streakDays: 7, streakAtRisk: false, classRank: 3, classSize: 28, dailyGoal: { target: 1, done: 0 } };
 export const STUDENT_UNIT_PROGRESS = [65, 30, 0];
-export const STUDENT_ASSIGNMENTS = [
-  { id: 1, title: "Grammar & vocabulary", unitName: "Food & Drink", dueInDays: 2, questionCount: 20, timeLimitMinutes: 20, status: "TODO" as const },
-  { id: 2, title: "My daily routine", unitName: "Daily Routines", dueInDays: 5, questionCount: 15, timeLimitMinutes: 20, status: "IN_PROGRESS" as const },
+// Sample labels and instructions are presentation data, not assessment policy.
+export const STUDENT_ASSIGNMENTS: AssignmentPreview[] = [
+  { id: 1, title: "Grammar & vocabulary", unitName: "Food & Drink", dueInDays: 2, questionCount: 20, timeLimitMinutes: 20, status: "TODO", description: "Show what you've learned about food, quantities and everyday English. Read each question carefully and take your time.", teacherName: "Ms. Linh", dueLabel: "Wed, 28 Oct · 8:00 PM", instructions: ["Read each question carefully before answering.", "You can move between questions and check your answers before submitting.", "No hints or answer feedback are shown during the assignment."], samplePaper: true },
+  { id: 2, title: "My daily routine", unitName: "Daily Routines", dueInDays: 5, questionCount: 15, timeLimitMinutes: 20, status: "IN_PROGRESS", description: "Use time expressions and the present simple to talk about a typical day.", teacherName: "Ms. Linh", dueLabel: "Sat, 31 Oct · 8:00 PM", instructions: ["Read the time expressions in each question carefully.", "Check your answers before submitting."], samplePaper: false },
+  { id: 3, title: "Family & friends", unitName: "My Family", dueInDays: 7, questionCount: 12, timeLimitMinutes: 15, status: "TODO", description: "Review family vocabulary and possessives in everyday sentences.", teacherName: "Ms. Linh", dueLabel: "Mon, 2 Nov · 8:00 PM", instructions: ["Read each sentence carefully.", "Check spelling in your written answers."], samplePaper: false },
+  { id: 4, title: "A week in my life", unitName: "Daily Routines", dueInDays: -3, questionCount: 15, timeLimitMinutes: 20, status: "SUBMITTED", description: "An assignment about everyday activities and frequency expressions.", teacherName: "Ms. Linh", dueLabel: "Fri, 23 Oct · 8:00 PM", instructions: [], samplePaper: false },
+  { id: 5, title: "Meet my family", unitName: "My Family", dueInDays: -7, questionCount: 10, timeLimitMinutes: 15, status: "SUBMITTED", description: "Introduce your family using vocabulary from Unit 1.", teacherName: "Ms. Linh", dueLabel: "Mon, 19 Oct · 8:00 PM", instructions: [], samplePaper: false },
 ];
 export const STUDENT_RANKING = [{ name: "Hoàng Nam", xp: 1480 }, { name: "Linh Chi", xp: 1360 }, { name: "Minh Anh", xp: 1240 }, { name: "Gia Huy", xp: 1180 }, { name: "Thảo My", xp: 1120 }];
 export const STUDENT_RESULTS = [{ name: "Family vocabulary", mode: "Practice", score: "4/5", xp: 10, date: "Yesterday" }, { name: "Speed check", mode: "Try Hard", score: "3/5", xp: 10, date: "2 days ago" }, { name: "Possessive 's", mode: "Practice", score: "5/5", xp: 10, date: "3 days ago" }];
