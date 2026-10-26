@@ -7,7 +7,7 @@ describe("Assignment entry presentation", () => {
     expect(filterAssignments(STUDENT_ASSIGNMENTS, "TODO", "", "all").map(a => a.id)).toEqual([1,3]);
   });
   it("combines unit and case insensitive title filters", () => {
-    expect(filterAssignments(STUDENT_ASSIGNMENTS, "ALL", " DAILY ", "Daily Routines").map(a => a.id)).toEqual([2]);
+    expect(filterAssignments(STUDENT_ASSIGNMENTS, "ALL", " MY DAILY ", "Daily Routines").map(a => a.id)).toEqual([2]);
   });
   it("only links the matching sample paper rather than other assignment papers", () => {
     expect(STUDENT_ASSIGNMENTS.filter(a => a.samplePaper).map(a => a.id)).toEqual([1]);
