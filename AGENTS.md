@@ -19,3 +19,4 @@
 - Scope LearnUp student tokens to .learnup-theme and keep assessment tokens separate, so rewards and mascot styling never leak into exam mode.
 - Presentation-only types live in src/mocks/types.ts, sample values stay in src/lib/mock.ts, and pure student rules live in src/lib/student.ts; none imply new backend contracts.
 - Pipo state is shared through a provider in StudentShell and its SVG layers use semantic tokens, allowing accessible independent moods without external rendering dependencies.
+- Student Assignment list and introduction use presentation-only samples and a dedicated detail route; the exam player stays untouched and only an explicitly linked sample opens the existing paper.
