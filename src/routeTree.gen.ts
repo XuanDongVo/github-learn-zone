@@ -16,6 +16,7 @@ import { Route as UnitsRouteImport } from './routes/units'
 import { Route as DevStyleguideRouteImport } from './routes/dev.styleguide'
 import { Route as StudentAssignmentsRouteImport } from './routes/student_.assignments'
 import { Route as StudentProgressRouteImport } from './routes/student_.progress'
+import { Route as StudentAssignmentsAssignmentIdRouteImport } from './routes/student_.assignments_.$assignmentId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,12 @@ const StudentProgressRoute = StudentProgressRouteImport.update({
   path: '/student/progress',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentAssignmentsAssignmentIdRoute =
+  StudentAssignmentsAssignmentIdRouteImport.update({
+    id: '/student_/assignments_/$assignmentId',
+    path: '/student/assignments/$assignmentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student/assignments': typeof StudentAssignmentsRoute
   '/student/progress': typeof StudentProgressRoute
+  '/student/assignments/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +78,7 @@ export interface FileRoutesByTo {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student/assignments': typeof StudentAssignmentsRoute
   '/student/progress': typeof StudentProgressRoute
+  '/student/assignments/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +89,7 @@ export interface FileRoutesById {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student_/assignments': typeof StudentAssignmentsRoute
   '/student_/progress': typeof StudentProgressRoute
+  '/student_/assignments_/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +101,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student/assignments'
     | '/student/progress'
+    | '/student/assignments/$assignmentId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +111,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student/assignments'
     | '/student/progress'
+    | '/student/assignments/$assignmentId'
   id:
     | '__root__'
     | '/'
@@ -109,6 +121,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student_/assignments'
     | '/student_/progress'
+    | '/student_/assignments_/$assignmentId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +132,7 @@ export interface RootRouteChildren {
   DevStyleguideRoute: typeof DevStyleguideRoute
   StudentAssignmentsRoute: typeof StudentAssignmentsRoute
   StudentProgressRoute: typeof StudentProgressRoute
+  StudentAssignmentsAssignmentIdRoute: typeof StudentAssignmentsAssignmentIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentProgressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student_/assignments_/$assignmentId': {
+      id: '/student_/assignments_/$assignmentId'
+      path: '/student/assignments/$assignmentId'
+      fullPath: '/student/assignments/$assignmentId'
+      preLoaderRoute: typeof StudentAssignmentsAssignmentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +204,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevStyleguideRoute: DevStyleguideRoute,
   StudentAssignmentsRoute: StudentAssignmentsRoute,
   StudentProgressRoute: StudentProgressRoute,
+  StudentAssignmentsAssignmentIdRoute: StudentAssignmentsAssignmentIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
