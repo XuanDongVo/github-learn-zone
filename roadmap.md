@@ -19,6 +19,6 @@
 - [ ] Preserve exam/practice flows and verify desktop, tablet and mobile.
 
 # Student Assignment list and introduction
-- [ ] Create a searchable, filtered assignment list with sample states.
-- [ ] Add an assignment introduction without rebuilding the assignment-studio exam player.
-- [ ] Link Student Home to introductions and verify desktop, tablet and mobile.
+- [x] Create a searchable, filtered assignment list with sample states.
+- [x] Add an assignment introduction without rebuilding the assignment-studio exam player.
+- [x] Link Student Home to introductions and verify desktop, tablet and mobile.
