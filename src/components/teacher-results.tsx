@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowRight, ChevronRight, Clock, RefreshCw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -377,7 +376,7 @@ function DifficultyBadge({ q }: { q: QuestionStat }) {
 
 function ScoreBars({ scores }: { scores: number[] }) {
   const counts = [0, 0, 0, 0];
-  scores.forEach((s) => (counts[bucketIndex(s)] += 1));
+  scores.forEach((s) => (counts[bucketIndex(s)]! += 1));
   const max = Math.max(1, ...counts);
   return (
     <div className="flex h-44 items-end gap-4">
@@ -523,7 +522,7 @@ function AttemptSheet({ row, onClose }: { row: StudentRow | null; onClose: () =>
                 return (
                   <section key={key} className="mb-5">
                     <header className="mb-2 flex items-center justify-between border-b border-border pb-1.5">
-                      <h3 className="text-sm font-bold">{items[0].sectionTitle}</h3>
+                      <h3 className="text-sm font-bold">{items[0]?.sectionTitle}</h3>
                       <span className="text-xs font-semibold tabular-nums text-muted-foreground">{earned} / {possible} pts</span>
                     </header>
                     <ol className="space-y-2">
@@ -557,4 +556,3 @@ function AttemptSheet({ row, onClose }: { row: StudentRow | null; onClose: () =>
   );
 }
 
-export { Link as _UnusedLink };
