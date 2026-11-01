@@ -123,3 +123,107 @@ export const EXAM_QUESTIONS: ExamQuestion[] = [
     { id: 20, sentence: "Write one sentence about something you did last weekend." },
   ].map(q => ({ ...q, type: "TYPE_ANSWER" as const, prompt: "Write your answer in the space below.", options: [] })),
 ];
+
+// ─── Teacher Assignment Results sample (presentation only, not live API data) ───
+import type { AssignedStudent, AttemptQuestionResult, QuestionSnapshot, TeacherAttempt } from "@/lib/teacher-analytics";
+
+export const TEACHER_ASSIGNMENT_SAMPLE = {
+  id: 1,
+  title: "Unit 3 · Grammar & vocabulary check",
+  grade: "Grade 6",
+  classes: ["6A", "6B", "6C"],
+  status: "Closed",
+  dueAt: "2026-10-30T23:59:00",
+  timeLimitMinutes: 20,
+  lastUpdated: "2026-11-01T08:00:00",
+  now: "2026-11-01T08:00:00",
+};
+
+const opt = (...t: string[]) => t.map((text, i) => ({ key: "ABCD"[i], text }));
+export const TEACHER_QUESTIONS: QuestionSnapshot[] = [
+  { position: 0, summary: "Example: to be", prompt: "She ___ a student.", type: "SINGLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 0, example: true, options: opt("is", "are", "am", "be"), correct: ["A"] },
+  { position: 1, summary: "Past Simple form", prompt: "Yesterday I ___ to the park.", type: "SINGLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 1, example: false, options: opt("go", "went", "gone", "going"), correct: ["B"] },
+  { position: 2, summary: "Irregular verbs", prompt: "Choose all irregular past forms.", type: "MULTIPLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 2, example: false, options: opt("ate", "played", "saw", "walked"), correct: ["A", "C"] },
+  { position: 3, summary: "Present continuous", prompt: "Look! The children ___ football.", type: "SINGLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 1, example: false, options: opt("play", "are playing", "plays", "played"), correct: ["B"] },
+  { position: 4, summary: "Past Simple negative", prompt: "We ___ (not / watch) TV last night.", type: "FILL_IN_BLANK", sectionKey: "grammar", sectionTitle: "Grammar", points: 1, example: false, correct: ["didn't watch"] },
+  { position: 5, summary: "Food vocabulary", prompt: "Which one is a vegetable?", type: "SINGLE_CHOICE", sectionKey: "vocab", sectionTitle: "Vocabulary", points: 1, example: false, options: opt("Carrot", "Apple", "Bread", "Cheese"), correct: ["A"] },
+  { position: 6, summary: "Countable nouns", prompt: "\"Rice\" is a countable noun.", type: "TRUE_FALSE", sectionKey: "vocab", sectionTitle: "Vocabulary", points: 1, example: false, options: [{ key: "T", text: "True" }, { key: "F", text: "False" }], correct: ["F"] },
+  { position: 7, summary: "Daily routine verbs", prompt: "I ___ my teeth every morning.", type: "FILL_IN_BLANK", sectionKey: "vocab", sectionTitle: "Vocabulary", points: 1, example: false, correct: ["brush"] },
+  { position: 8, summary: "Reading: main idea", prompt: "What is the passage mainly about?", type: "SINGLE_CHOICE", sectionKey: "reading", sectionTitle: "Reading", points: 1, example: false, options: opt("A school trip", "A birthday party", "A sports day", "A new pet"), correct: ["A"] },
+  { position: 9, summary: "Reading: detail", prompt: "Tom arrived at the museum by bus.", type: "TRUE_FALSE", sectionKey: "reading", sectionTitle: "Reading", points: 1, example: false, options: [{ key: "T", text: "True" }, { key: "F", text: "False" }], correct: ["T"] },
+  { position: 10, summary: "Reading inference", prompt: "How did Tom feel at the end of the trip?", type: "SINGLE_CHOICE", sectionKey: "reading", sectionTitle: "Reading", points: 1, example: false, options: opt("Bored", "Tired but happy", "Angry", "Scared"), correct: ["B"] },
+  { position: 11, summary: "Write a past sentence", prompt: "Write one sentence about what you did last weekend.", type: "TYPE_ANSWER", sectionKey: "writing", sectionTitle: "Writing", points: 2, example: false, correct: ["Any correct Past Simple sentence"] },
+  { position: 12, summary: "Word order", prompt: "Reorder: yesterday / visited / I / grandma / my", type: "TYPE_ANSWER", sectionKey: "writing", sectionTitle: "Writing", points: 1, example: false, correct: ["I visited my grandma yesterday"] },
+];
+
+const NAMES = [
+  "Nguyen An", "Tran Binh", "Le Chi", "Pham Dung", "Hoang Giang", "Vu Ha", "Dang Hieu", "Bui Khanh", "Do Lan", "Ngo Long", "Duong Mai",
+  "Ly Minh", "Mai Nam", "Trinh Ngoc", "Phan Oanh", "Cao Phuc", "Dinh Quang", "Ha Quynh", "Lam Son", "Luong Tam", "To Thao", "Kieu Trang",
+  "Ta Tuan", "Quach Uyen", "Vo Van", "Chu Viet", "Lai Xuan", "Ong Yen", "Tang Bao", "Thai Cuong", "Lu Diep", "Mac Hanh",
+];
+export const TEACHER_STUDENTS: AssignedStudent[] = NAMES.map((name, i) => {
+  const c = i < 11 ? "6A" : i < 22 ? "6B" : "6C";
+  return { id: i + 1, name, classId: c.toLowerCase(), className: c };
+});
+
+// Hard-coded per-question difficulty so the sample shows realistic "hard" items.
+const EASE: Record<number, number> = { 0: 1, 1: 0.34, 2: 0.29, 3: 0.7, 4: 0.55, 5: 0.95, 6: 0.72, 7: 0.78, 8: 0.9, 9: 0.82, 10: 0.41, 11: 0.75, 12: 0.7 };
+const WRONG_TEXT: Record<number, string> = { 4: "not watched", 7: "wash", 11: "I go to the zoo.", 12: "I my grandma visited yesterday" };
+const GOOD_TEXT: Record<number, string> = { 4: "didn't watch", 7: "brush", 11: "I played badminton with my dad.", 12: "I visited my grandma yesterday" };
+
+function rng(seed: number) {
+  let s = seed;
+  return () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+}
+
+function answerFor(q: QuestionSnapshot, ok: boolean, r: () => number): string[] {
+  if (q.options) {
+    if (ok) return q.correct;
+    if (q.type === "MULTIPLE_CHOICE") return r() > 0.5 ? ["A"] : ["A", "B"];
+    const wrong = q.options.filter((o) => !q.correct.includes(o.key));
+    return [wrong[Math.floor(r() * wrong.length)].key];
+  }
+  return [ok ? GOOD_TEXT[q.position] : WRONG_TEXT[q.position]];
+}
+
+// Students 29–32 have no attempt (overdue); 27–28 are still in progress.
+export const TEACHER_ATTEMPTS: TeacherAttempt[] = TEACHER_STUDENTS.slice(0, 28).map((s, i) => {
+  const r = rng(i + 7);
+  const ability = [0.15, 0.25, 0.3, -0.05, -0.1, 0.1, 0.05, -0.2, 0.2, 0, -0.25, 0.1][i % 12];
+  const inProgress = i >= 26;
+  const timedOut = i === 5 || i === 17;
+  const late = i === 3 || i === 14 || i === 23;
+  const questions: AttemptQuestionResult[] = TEACHER_QUESTIONS.map((q) => {
+    const unanswered = !q.example && (timedOut ? q.position >= 10 : r() < 0.04);
+    const ok = !unanswered && r() < Math.min(0.98, EASE[q.position] + ability);
+    const partial = !ok && !unanswered && q.points > 1 && r() < 0.5;
+    const status = q.example ? "CORRECT" : unanswered ? "UNANSWERED" : ok ? "CORRECT" : partial ? "PARTIAL" : "INCORRECT";
+    return {
+      position: q.position,
+      sectionKey: q.sectionKey,
+      sectionTitle: q.sectionTitle,
+      example: q.example,
+      possiblePoints: q.points,
+      earnedPoints: status === "CORRECT" ? q.points : status === "PARTIAL" ? q.points / 2 : 0,
+      status,
+      answer: unanswered ? [] : partial && q.type === "MULTIPLE_CHOICE" ? ["A"] : answerFor(q, ok, r),
+    };
+  });
+  const possible = questions.reduce((a, q) => a + q.possiblePoints, 0);
+  const day = late ? "31" : "29";
+  const minutes = timedOut ? 20 : 9 + Math.floor(r() * 10);
+  return {
+    id: 100 + i,
+    studentId: s.id,
+    classIdAtStart: s.classId,
+    classNameAtStart: s.className,
+    status: inProgress ? "IN_PROGRESS" : timedOut ? "TIMED_OUT" : "SUBMITTED",
+    startedAt: `2026-10-${day}T15:00:00`,
+    submittedAt: inProgress || timedOut ? undefined : `2026-10-${day}T15:${String(minutes).padStart(2, "0")}:00`,
+    timedOutAt: timedOut ? `2026-10-${day}T15:20:00` : undefined,
+    late,
+    totalPossiblePoints: possible,
+    totalEarnedPoints: inProgress ? 0 : questions.reduce((a, q) => a + q.earnedPoints, 0),
+    questions,
+  };
+});
