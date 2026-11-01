@@ -139,7 +139,7 @@ export const TEACHER_ASSIGNMENT_SAMPLE = {
   now: "2026-11-01T08:00:00",
 };
 
-const opt = (...t: string[]) => t.map((text, i) => ({ key: "ABCD"[i], text }));
+const opt = (...t: string[]) => t.map((text, i) => ({ key: "ABCD"[i] ?? "", text }));
 export const TEACHER_QUESTIONS: QuestionSnapshot[] = [
   { position: 0, summary: "Example: to be", prompt: "She ___ a student.", type: "SINGLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 0, example: true, options: opt("is", "are", "am", "be"), correct: ["A"] },
   { position: 1, summary: "Past Simple form", prompt: "Yesterday I ___ to the park.", type: "SINGLE_CHOICE", sectionKey: "grammar", sectionTitle: "Grammar", points: 1, example: false, options: opt("go", "went", "gone", "going"), correct: ["B"] },
@@ -181,21 +181,21 @@ function answerFor(q: QuestionSnapshot, ok: boolean, r: () => number): string[] 
     if (ok) return q.correct;
     if (q.type === "MULTIPLE_CHOICE") return r() > 0.5 ? ["A"] : ["A", "B"];
     const wrong = q.options.filter((o) => !q.correct.includes(o.key));
-    return [wrong[Math.floor(r() * wrong.length)].key];
+    return [wrong[Math.floor(r() * wrong.length)]!.key];
   }
-  return [ok ? GOOD_TEXT[q.position] : WRONG_TEXT[q.position]];
+  return [(ok ? GOOD_TEXT[q.position] : WRONG_TEXT[q.position]) ?? ""];
 }
 
 // Students 29–32 have no attempt (overdue); 27–28 are still in progress.
 export const TEACHER_ATTEMPTS: TeacherAttempt[] = TEACHER_STUDENTS.slice(0, 28).map((s, i) => {
   const r = rng(i + 7);
-  const ability = [0.15, 0.25, 0.3, -0.05, -0.1, 0.1, 0.05, -0.2, 0.2, 0, -0.25, 0.1][i % 12];
+  const ability = [0.15, 0.25, 0.3, -0.05, -0.1, 0.1, 0.05, -0.2, 0.2, 0, -0.25, 0.1][i % 12] ?? 0;
   const inProgress = i >= 26;
   const timedOut = i === 5 || i === 17;
   const late = i === 3 || i === 14 || i === 23;
   const questions: AttemptQuestionResult[] = TEACHER_QUESTIONS.map((q) => {
     const unanswered = !q.example && (timedOut ? q.position >= 10 : r() < 0.04);
-    const ok = !unanswered && r() < Math.min(0.98, EASE[q.position] + ability);
+    const ok = !unanswered && r() < Math.min(0.98, (EASE[q.position] ?? 0.5) + ability);
     const partial = !ok && !unanswered && q.points > 1 && r() < 0.5;
     const status = q.example ? "CORRECT" : unanswered ? "UNANSWERED" : ok ? "CORRECT" : partial ? "PARTIAL" : "INCORRECT";
     return {

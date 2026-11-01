@@ -25,8 +25,8 @@ export interface TeacherAttempt {
   classNameAtStart: string;
   status: AttemptStatus;
   startedAt: string;
-  submittedAt?: string;
-  timedOutAt?: string;
+  submittedAt?: string | undefined;
+  timedOutAt?: string | undefined;
   late: boolean;
   totalPossiblePoints: number;
   totalEarnedPoints: number;
@@ -103,7 +103,7 @@ export function median(values: number[]): number | null {
   if (!values.length) return null;
   const s = [...values].sort((a, b) => a - b);
   const m = Math.floor(s.length / 2);
-  return s.length % 2 ? s[m] : Math.round(((s[m - 1] + s[m]) / 2) * 10) / 10;
+  return s.length % 2 ? s[m]! : Math.round(((s[m - 1]! + s[m]!) / 2) * 10) / 10;
 }
 
 export function mean(values: number[]): number | null {
@@ -270,10 +270,10 @@ export function classStats(rows: StudentRow[]): ClassStat[] {
     .map(([classId, list]) => {
       const scores = list.filter((r) => r.score !== null).map((r) => r.score!);
       const buckets = [0, 0, 0, 0];
-      scores.forEach((s) => (buckets[bucketIndex(s)] += 1));
+      scores.forEach((s) => (buckets[bucketIndex(s)]! += 1));
       return {
         classId,
-        className: rowClassName(list[0]),
+        className: rowClassName(list[0]!),
         students: list.length,
         completed: scores.length,
         average: mean(scores),
