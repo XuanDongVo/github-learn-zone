@@ -345,3 +345,41 @@
 .qb-empty .qb-action {margin-top:10px;gap:10px;}
 @media(max-width:760px){.qb-hero {padding:18px;gap:12px;border-radius:20px;}.qb-hero-pipo svg {width:78px;height:78px;}.learnup-theme .qb-hero h1 {font-size:21px;}.qb-hero p {font-size:13px;}.qb-search {max-width:none;width:100%;}.qb-pills {display:grid;grid-template-columns:repeat(4,auto);gap:6px;overflow-x:auto;width:100%;}.qb-pill {padding:0 11px;font-size:13px;gap:5px;white-space:nowrap;}.qb-units {flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;}.qb-unit-chip {white-space:nowrap;}.qb-grid {grid-template-columns:1fr;gap:16px;}}
 @media (prefers-reduced-motion:reduce){.qb-card,.qb-pill,.qb-action,.qb-unit-chip {transition:none;}.qb-card:hover {transform:none;}}
+
+/* ===== Student top navigation + playful home ===== */
+.topnav-app {display:block;}
+.topnav-app .student-body {margin:0!important;width:100%!important;}
+.topnav-bar {position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:20px;height:76px;padding:0 max(24px,calc((100% - 1280px)/2));background:var(--card);border-bottom:1.5px solid var(--foreground);box-shadow:0 3px 0 var(--pop-shadow-color);}
+.topnav-bar .brand {padding-left:0;flex-shrink:0;}
+.topnav-bar .sidebar-nav {flex-direction:row;gap:6px;margin:0 auto;}
+.learnup-theme .topnav-bar .sidebar-nav a {min-height:44px;padding:0 14px;border-radius:999px;gap:8px;}
+.learnup-theme .topnav-bar .sidebar-nav a:hover {background:var(--warm-soft);color:var(--foreground);}
+.learnup-theme .topnav-bar .sidebar-nav a.nav-active {transform:translateY(-1px);}
+.topnav-right {display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.topnav-right .student-chip {border:1.5px solid var(--foreground);box-shadow:2px 2px 0 var(--pop-shadow-color);}
+.topnav-avatar {height:auto;padding:3px 10px 3px 3px;border:1.5px solid var(--foreground);border-radius:999px;gap:8px;box-shadow:2px 2px 0 var(--pop-shadow-color);}
+.topnav-level {font-size:12px;font-weight:800;}
+.topnav-app .student-main {max-width:1280px;padding:32px 24px 64px;}
+@media(max-width:1180px){.learnup-theme .topnav-bar .sidebar-nav a {font-size:0;width:46px;padding:0;justify-content:center;gap:0;}.learnup-theme .topnav-bar .sidebar-nav a.nav-active {font-size:13px;width:auto;padding:0 14px;gap:8px;}}
+@media(max-width:760px){.topnav-bar {height:62px;padding:0 14px;gap:10px;}.topnav-bar .sidebar-nav,.topnav-icon,.topnav-level {display:none;}.topnav-right {margin-left:auto;}.topnav-avatar {padding:2px;}.topnav-app .student-main {padding:20px 14px 100px;}.learnup-theme .topnav-bar .brand {font-size:21px;}}
+
+/* Playful / tactile home */
+.topnav-app .home-welcome {border:1.5px solid var(--foreground);border-radius:24px;box-shadow:var(--pop-large);background:linear-gradient(135deg,var(--warm-soft),var(--accent-soft) 60%,var(--teal-soft));padding:32px 34px 18px;overflow:hidden;}
+.topnav-app .home-greeting h1 {font-size:40px;font-weight:800;letter-spacing:-.5px;}
+.topnav-app .home-next {background:var(--card);border:1.5px solid var(--foreground);border-radius:18px;box-shadow:var(--pop-medium);padding:16px 18px;}
+.topnav-app .next-icon {background:var(--primary);color:var(--foreground);border:1.5px solid var(--foreground);border-radius:14px;transform:rotate(-6deg);}
+.topnav-app .home-stats {gap:16px;margin:28px 0 36px;}
+.topnav-app .stat-tile {border:1.5px solid var(--foreground);border-radius:18px;box-shadow:var(--pop-medium);transition:transform .15s,box-shadow .15s;}
+.topnav-app .stat-tile:hover {transform:translate(-2px,-2px);box-shadow:var(--pop-large);}
+.topnav-app .stat-tile:active {transform:translate(2px,2px);box-shadow:none;}
+.topnav-app .stat-tile:nth-child(1){background:var(--accent-soft);}.topnav-app .stat-tile:nth-child(2){background:var(--primary-soft);}.topnav-app .stat-tile:nth-child(3){background:var(--teal-soft);}.topnav-app .stat-tile:nth-child(4){background:var(--info-soft);}
+.topnav-app .stat-tile strong {font-weight:800;}
+.topnav-app .home-unit,.topnav-app .home-assignment,.topnav-app .ranking-rows,.topnav-app .result-rows,.topnav-app .home-badges {border:1.5px solid var(--foreground);border-radius:18px;box-shadow:var(--pop-medium);background:var(--card);overflow:hidden;}
+.topnav-app .home-unit {transition:transform .15s,box-shadow .15s;}.topnav-app .home-unit:hover {transform:translate(-2px,-2px) rotate(-.4deg);box-shadow:var(--pop-large);}
+.topnav-app .assignment-rows {display:flex;flex-direction:column;gap:12px;}
+.topnav-app .home-assignment {padding:14px;}
+.topnav-app .assignment-symbol,.topnav-app .result-symbol {border:1.5px solid var(--foreground);border-radius:12px;background:var(--accent-soft);}
+.topnav-app .ranking-you {background:var(--primary-soft);}
+.topnav-app .home-badges {padding:20px 22px;margin-top:28px;}
+.topnav-app .locked-badge>span {border:1.5px dashed var(--foreground);border-radius:16px;}
+@media(max-width:760px){.topnav-app .home-welcome {padding:20px 16px 10px;border-radius:18px;box-shadow:var(--pop-medium);}.topnav-app .home-greeting h1 {font-size:26px;}}

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { BookOpen, GraduationCap, House, ChevronRight, Inbox, RotateCw, AlertCircle, Sparkles, ClipboardList, ChartNoAxesColumnIncreasing, Bell, Settings } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
