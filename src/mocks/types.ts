@@ -10,4 +10,7 @@ export type AssignmentPreview = {
   status: "TODO" | "IN_PROGRESS" | "SUBMITTED";
   description: string; teacherName: string; dueLabel: string;
   instructions: string[]; samplePaper: boolean;
-};
+};// Gamification presentation types. Level and Mascot are separate concepts; no badges/coins/shop.
+export type MascotItem = { id: string; name: string; unlockLevel: number; mood: "happy" | "cheer" | "think" | "wave" };
+export type AvatarOption = { id: string; initials: string; tone: "primary" | "success" | "info" | "pink" | "teal" };
+export type RewardItem = { id: string; title: string; description: string; unlockLevel: number; kind: "avatar" | "mascot" | "theme" };
