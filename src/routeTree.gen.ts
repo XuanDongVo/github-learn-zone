@@ -16,6 +16,7 @@ import { Route as UnitsRouteImport } from './routes/units'
 import { Route as DevStyleguideRouteImport } from './routes/dev.styleguide'
 import { Route as StudentAssignmentsRouteImport } from './routes/student_.assignments'
 import { Route as StudentProgressRouteImport } from './routes/student_.progress'
+import { Route as StudentRewardsRouteImport } from './routes/student_.rewards'
 import { Route as StudentAssignmentsAssignmentIdRouteImport } from './routes/student_.assignments_.$assignmentId'
 import { Route as TeacherAssignmentsAssignmentIdResultsRouteImport } from './routes/teacher.assignments.$assignmentId.results'
 
@@ -54,6 +55,11 @@ const StudentProgressRoute = StudentProgressRouteImport.update({
   path: '/student/progress',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentRewardsRoute = StudentRewardsRouteImport.update({
+  id: '/student_/rewards',
+  path: '/student/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentAssignmentsAssignmentIdRoute =
   StudentAssignmentsAssignmentIdRouteImport.update({
     id: '/student_/assignments_/$assignmentId',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student/assignments': typeof StudentAssignmentsRoute
   '/student/progress': typeof StudentProgressRoute
+  '/student/rewards': typeof StudentRewardsRoute
   '/student/assignments/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
   '/teacher/assignments/$assignmentId/results': typeof TeacherAssignmentsAssignmentIdResultsRoute
 }
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student/assignments': typeof StudentAssignmentsRoute
   '/student/progress': typeof StudentProgressRoute
+  '/student/rewards': typeof StudentRewardsRoute
   '/student/assignments/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
   '/teacher/assignments/$assignmentId/results': typeof TeacherAssignmentsAssignmentIdResultsRoute
 }
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/dev/styleguide': typeof DevStyleguideRoute
   '/student_/assignments': typeof StudentAssignmentsRoute
   '/student_/progress': typeof StudentProgressRoute
+  '/student_/rewards': typeof StudentRewardsRoute
   '/student_/assignments_/$assignmentId': typeof StudentAssignmentsAssignmentIdRoute
   '/teacher/assignments/$assignmentId/results': typeof TeacherAssignmentsAssignmentIdResultsRoute
 }
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student/assignments'
     | '/student/progress'
+    | '/student/rewards'
     | '/student/assignments/$assignmentId'
     | '/teacher/assignments/$assignmentId/results'
   fileRoutesByTo: FileRoutesByTo
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student/assignments'
     | '/student/progress'
+    | '/student/rewards'
     | '/student/assignments/$assignmentId'
     | '/teacher/assignments/$assignmentId/results'
   id:
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/dev/styleguide'
     | '/student_/assignments'
     | '/student_/progress'
+    | '/student_/rewards'
     | '/student_/assignments_/$assignmentId'
     | '/teacher/assignments/$assignmentId/results'
   fileRoutesById: FileRoutesById
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   DevStyleguideRoute: typeof DevStyleguideRoute
   StudentAssignmentsRoute: typeof StudentAssignmentsRoute
   StudentProgressRoute: typeof StudentProgressRoute
+  StudentRewardsRoute: typeof StudentRewardsRoute
   StudentAssignmentsAssignmentIdRoute: typeof StudentAssignmentsAssignmentIdRoute
   TeacherAssignmentsAssignmentIdResultsRoute: typeof TeacherAssignmentsAssignmentIdResultsRoute
 }
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentProgressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student_/rewards': {
+      id: '/student_/rewards'
+      path: '/student/rewards'
+      fullPath: '/student/rewards'
+      preLoaderRoute: typeof StudentRewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/student_/assignments_/$assignmentId': {
       id: '/student_/assignments_/$assignmentId'
       path: '/student/assignments/$assignmentId'
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevStyleguideRoute: DevStyleguideRoute,
   StudentAssignmentsRoute: StudentAssignmentsRoute,
   StudentProgressRoute: StudentProgressRoute,
+  StudentRewardsRoute: StudentRewardsRoute,
   StudentAssignmentsAssignmentIdRoute: StudentAssignmentsAssignmentIdRoute,
   TeacherAssignmentsAssignmentIdResultsRoute:
     TeacherAssignmentsAssignmentIdResultsRoute,

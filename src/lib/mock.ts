@@ -227,3 +227,8 @@ export const TEACHER_ATTEMPTS: TeacherAttempt[] = TEACHER_STUDENTS.slice(0, 28).
     questions,
   };
 });
+import type { MascotItem, AvatarOption, RewardItem } from "@/mocks/types";
+export const STREAK_DAYS_SAMPLE: boolean[] = [true,false,true,true,true,false,false,true,true,true,true,true,true,true];
+export const MASCOTS_SAMPLE: MascotItem[] = [{id:"sprout",name:"Sprout Pipo",unlockLevel:1,mood:"happy"},{id:"leafy",name:"Leafy Pipo",unlockLevel:5,mood:"wave"},{id:"bloom",name:"Bloom Pipo",unlockLevel:10,mood:"think"},{id:"crown",name:"Crown Pipo",unlockLevel:15,mood:"cheer"}];
+export const AVATARS_SAMPLE: AvatarOption[] = [{id:"a1",initials:"MA",tone:"primary"},{id:"a2",initials:"🦊",tone:"pink"},{id:"a3",initials:"🐼",tone:"info"},{id:"a4",initials:"🐢",tone:"success"},{id:"a5",initials:"🦉",tone:"teal"}];
+export const REWARDS_SAMPLE: RewardItem[] = [{id:"r1",title:"Fox avatar",description:"A new profile look",unlockLevel:3,kind:"avatar"},{id:"r2",title:"Leafy Pipo",description:"Pipo grows a second leaf",unlockLevel:5,kind:"mascot"},{id:"r3",title:"Sunset theme",description:"Warm colours for your Home",unlockLevel:8,kind:"theme"},{id:"r4",title:"Bloom Pipo",description:"Pipo blossoms",unlockLevel:10,kind:"mascot"}];

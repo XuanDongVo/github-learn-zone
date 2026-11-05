@@ -1,0 +1,7 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { StudentShell } from "@/components/shell";
+import { LevelCard, StreakCalendar, AvatarPicker, MascotCollection, RewardCard, LeaderboardTable } from "@/components/gamification";
+import { STUDENT_SAMPLE as s, STREAK_DAYS_SAMPLE, AVATARS_SAMPLE, MASCOTS_SAMPLE, REWARDS_SAMPLE, STUDENT_RANKING } from "@/lib/mock";
+import { levelFromXp } from "@/lib/student";
+export const Route = createFileRoute("/student_/rewards")({ head: () => ({ meta: [{ title: "Rewards — LearnUp" }, { name: "description", content: "Your level, streak, avatar, Pipo collection and class leaderboard." }, { property: "og:title", content: "Rewards — LearnUp" }, { property: "og:description", content: "See your level, streak and Pipo collection." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: Page });
+function Page() { const level = levelFromXp(s.xp); return <StudentShell><div className="student-page-heading"><h1>Your rewards</h1><p>Every activity helps you and Pipo grow.</p></div><div className="gm-grid"><LevelCard xp={s.xp}/><StreakCalendar days={STREAK_DAYS_SAMPLE} streak={s.streakDays}/><AvatarPicker options={AVATARS_SAMPLE}/><MascotCollection mascots={MASCOTS_SAMPLE} level={level}/><div className="gm-wide gm-rewards">{REWARDS_SAMPLE.map(r => <RewardCard key={r.id} reward={r} level={level}/>)}</div><LeaderboardTable rows={STUDENT_RANKING} me={s.name}/></div></StudentShell>; }
