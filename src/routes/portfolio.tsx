@@ -123,7 +123,7 @@ function Portfolio() {
     return () => { cancelAnimationFrame(raf); window.removeEventListener("wheel", onWheel); window.removeEventListener("keydown", onKey); };
   }, []);
 
-  const initials = PROFILE.name.split(" ").map((w) => w[0]).slice(-2).join("");
+  const initials = PROFILE.name.split(" ").map((w) => w[0]).slice(0, 2).join("");
 
   return (
     <div className="sw">
