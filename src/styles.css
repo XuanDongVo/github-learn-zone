@@ -394,3 +394,24 @@
 .gm-table{width:100%;border-collapse:collapse;font-size:14px}.gm-table th{text-align:left;font-size:11px;color:var(--muted-foreground);padding:8px}.gm-table td{padding:10px 8px;border-top:1px solid var(--border)}.gm-me td{background:var(--primary-soft);font-weight:800}
 @media (max-width:1024px){.gm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gm-rewards{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.gm-grid{grid-template-columns:1fr}.gm-mascots{grid-template-columns:repeat(2,1fr)}.gm-rewards{grid-template-columns:1fr}}
+
+/* ===== Portfolio (Saltwake storybook) — scoped to .sw ===== */
+.sw{--paper:#e6e0cf;--ink:#201c15;--line:#16130e;--band:#d7d2c2;--band2:#dcd7c7;--pill:#ece7d8;
+  position:fixed;inset:0;background:var(--paper);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+.sw .frame{position:absolute;inset:14px;border-radius:34px;overflow:hidden;background:var(--paper);isolation:isolate}
+.sw .frame::after{content:"";position:absolute;inset:0;border:6px solid var(--line);border-radius:34px;pointer-events:none;z-index:30}
+.sw .serif{font-family:"Goudy Bookletter 1911","Sorts Mill Goudy",serif;letter-spacing:-.045em;text-transform:uppercase;font-weight:400}
+.sw .eb{font:400 clamp(14px,1.6vw,22px)/1 "Sorts Mill Goudy",serif;letter-spacing:.2em;text-transform:uppercase}
+.sw .small{font:700 12.5px/1.7 "Open Sans",sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.sw .pill{display:inline-block;font:600 17px/1 "Josefin Sans",sans-serif;text-transform:uppercase;padding:17px 44px 13px;
+  border:3px solid var(--line);border-radius:999px;background:var(--pill);cursor:pointer;color:var(--ink);
+  box-shadow:0 7px 0 -1px var(--paper),0 7px 0 2px var(--line);transition:transform .25s,box-shadow .25s}
+.sw .pill:hover{transform:translateY(3px);box-shadow:0 4px 0 -1px var(--paper),0 4px 0 2px var(--line)}
+.sw .pill:focus-visible{outline:3px dashed var(--line);outline-offset:6px}
+.sw .card{border:3px solid var(--line);border-radius:22px;background:var(--pill);box-shadow:0 7px 0 -1px var(--paper),0 7px 0 2px var(--line)}
+.sw .tag{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:4px 10px 2px;font:600 11px/1.2 "Josefin Sans",sans-serif;text-transform:uppercase;background:var(--paper)}
+.sw .avatar{border:6px solid var(--line);border-radius:50%;background:var(--band);box-shadow:0 0 0 8px var(--paper),0 0 0 11px var(--line);overflow:hidden}
+.sw .bar{height:10px;border:2px solid var(--line);border-radius:999px;background:var(--paper);overflow:hidden}
+.sw .bar>i{display:block;height:100%;background:var(--ink)}
+.sw svg.waves path{stroke:var(--line);stroke-width:3.2;stroke-linecap:round}
+@media (max-width:760px){.sw .frame,.sw .frame::after{border-radius:22px}.sw .frame{inset:8px}}

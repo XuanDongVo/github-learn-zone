@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivitiesRouteImport } from './routes/activities'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as UnitsRouteImport } from './routes/units'
 import { Route as DevStyleguideRouteImport } from './routes/dev.styleguide'
@@ -28,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const ActivitiesRoute = ActivitiesRouteImport.update({
   id: '/activities',
   path: '/activities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentRoute = StudentRouteImport.update({
@@ -76,6 +82,7 @@ const TeacherAssignmentsAssignmentIdResultsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
+  '/portfolio': typeof PortfolioRoute
   '/student': typeof StudentRoute
   '/units': typeof UnitsRoute
   '/dev/styleguide': typeof DevStyleguideRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
+  '/portfolio': typeof PortfolioRoute
   '/student': typeof StudentRoute
   '/units': typeof UnitsRoute
   '/dev/styleguide': typeof DevStyleguideRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
+  '/portfolio': typeof PortfolioRoute
   '/student': typeof StudentRoute
   '/units': typeof UnitsRoute
   '/dev/styleguide': typeof DevStyleguideRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/activities'
+    | '/portfolio'
     | '/student'
     | '/units'
     | '/dev/styleguide'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activities'
+    | '/portfolio'
     | '/student'
     | '/units'
     | '/dev/styleguide'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/activities'
+    | '/portfolio'
     | '/student'
     | '/units'
     | '/dev/styleguide'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivitiesRoute: typeof ActivitiesRoute
+  PortfolioRoute: typeof PortfolioRoute
   StudentRoute: typeof StudentRoute
   UnitsRoute: typeof UnitsRoute
   DevStyleguideRoute: typeof DevStyleguideRoute
@@ -176,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/activities'
       fullPath: '/activities'
       preLoaderRoute: typeof ActivitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/student': {
@@ -240,6 +260,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivitiesRoute: ActivitiesRoute,
+  PortfolioRoute: PortfolioRoute,
   StudentRoute: StudentRoute,
   UnitsRoute: UnitsRoute,
   DevStyleguideRoute: DevStyleguideRoute,
